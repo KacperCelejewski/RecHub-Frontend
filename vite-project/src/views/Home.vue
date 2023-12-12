@@ -1,54 +1,116 @@
 <template>
   <div class="flex justify-around">
-    
-    <div class="flex w-1/2 bg-black h-screen border-solid border-4 border-white rounded-lg">
-     <div class="relative w-full">
-      <img class="absolute w-3/4 aspect-[5/4]" src="../assets/RecoHub (1).png" alt="">
-      </div>
-      <div>
-
-      <div id="burgerContent" class="w-full p-3 mr-24 mt-3 border-2 border-aolid border-white rounded">
-        <ul>
-          <li class="text-white" v-for="burgerPart in burgerParts">
-            {{ burgerPart }}
-          </li>
-        </ul>
+    <div
+      class="block w-1/2 bg-black h-screen border-solid border-4 border-white rounded-lg"
+    >
+      <div class="w-full grid grid-cols-2 grid-rows-1">
         
+        <div class="flex justify-start">
+          <img
+            class=" aspect-[5/4]"
+            src="../assets/RecoHub (1).png"
+            alt=""
+          />
+        </div>
+
+        <div class="flex justify-end text-white w-full ">
+          <router-link
+            :to="{ name: 'Login' }">
+          <p class="p-3 text-end text-lg w-fit max-w-[60px]">login</p>
+        </router-link>
+          <p class="p-3 text-end text-lg w-fit max-w-[90px]">register</p>
+        </div>
+
+      </div>
+      <div
+        class="p-4 w-full grid grid-rows-2 grid-cols-2 gap-1 h-2/5"
+        id="industries"
+      >
+        <div
+          class="rounded text-white hover:bg-yellow-500 hover:border-solid hover:border-2 hover:border-white bg-zinc-900 flex justify-center items-center"
+        >
+          <router-link
+            :to="{ name: 'ParamCompanies', params: { industry: 'IT' } }"
+          >
+            <h1 class="text-xl">IT</h1></router-link
+          >
+        </div>
+
+        <div
+          class="rounded text-white hover:bg-yellow-500 hover:border-solid hover:border-2 hover:border-white bg-zinc-800 flex justify-center items-center"
+        >
+          <router-link
+            :to="{ name: 'ParamCompanies', params: { industry: 'Finance' } }"
+          >
+            <h1 class="text-xl">Finance</h1></router-link
+          >
+        </div>
+        <div
+          class="rounded text-white hover:bg-yellow-500 hover:border-solid hover:border-2 hover:border-white bg-zinc-700 flex justify-center items-center"
+        >
+          <router-link
+            :to="{ name: 'ParamCompanies', params: { industry: 'HR' } }"
+          >
+            <h1 class="text-xl">HR</h1></router-link
+          >
+        </div>
+        <div
+          class="rounded text-white hover:bg-yellow-500 hover:border-solid hover:border-2 hover:border-white bg-zinc-600 flex justify-center items-center"
+        >
+          <router-link
+            :to="{ name: 'ParamCompanies', params: { industry: 'HR' } }"
+          >
+            <h1 class="text-xl">Marketing</h1></router-link
+          >
+        </div>
       </div>
     </div>
-  </div>
 
-    <form action="" class="w-10/12 flex items-center">
+    <form action="" class="w-1/2 flex items-center">
       <div class="flex flex-col items-center w-full">
-        <input v-model="companyName" class="mb-4 placeholder:text-stone-950 rounded border-solid border-2 border-black p-2 placeholder:text-center placeholder:italic placeholder:text-sm w-9/12" type="search" placeholder="Search for best companies in your city" />
-        <button @click="filterCompanies()" class="bg-black text-white rounded p-2 w-4/12">Search</button>
+        <input
+          v-model="companyName"
+          class="mb-4 placeholder:text-stone-950 rounded border-solid border-2 border-black p-2 placeholder:text-center placeholder:italic placeholder:text-sm w-9/12"
+          type="search"
+          placeholder="Search for best companies in your city"
+        />
+        <button
+          @click="filterCompanies()"
+          class="bg-black text-white rounded p-2 w-4/12"
+        >
+          Search
+        </button>
       </div>
     </form>
   </div>
-
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
-import { useRouter } from 'vue-router';
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
-    const companyName = ref('');
+    const companyName = ref("");
     const companies = ref([]);
 
-    const burgerParts = ref(['TOP 100', 'Categories', 'About Us', 'Contact Us']);
+    const burgerParts = ref([
+      "TOP 100",
+      "Categories",
+      "About Us",
+      "Contact Us",
+    ]);
     const router = useRouter();
     const getCompanies = async () => {
-  try {
-    const res = await axios.get('http://localhost:5000/api/companies/');
-    console.log(res.data); // Log the response
-    companies.value = res.data.companies;
-  } catch (err) {
-    console.error(err);
-  }
-};
+      try {
+        const res = await axios.get("http://localhost:5000/api/companies/");
+        console.log(res.data); // Log the response
+        companies.value = res.data.companies;
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
     const filterCompanies = () => {
       const filteredCompany = companies.value.find(
@@ -56,9 +118,8 @@ export default {
       );
       console.log(filteredCompany);
       if (filteredCompany) {
-        router.push({ name: 'company', params: { id: filteredCompany.id } });
+        router.push({ name: "company", params: { id: filteredCompany.id } });
       }
-
     };
 
     onMounted(() => {
