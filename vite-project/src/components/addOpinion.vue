@@ -1,16 +1,19 @@
 <template>
-    <h1>Add Opinion</h1>
-    <form @submit.prevent="addOpinion">
-        <label for="title">title</label>
+    <h1 class="h-fit text-center text-fourth text-xl">Create review for future employees </h1>
+    <div class="flex justify-center w-full">
+    
+    <form @submit.prevent="addOpinion" class="w-3/4">
+        <div class="flex flex-col  p-4">
+        <label for="title">Topic</label>
         <input type="text" id="title" v-model="opinion.title" />
-        <label for="content">content</label>
+        <label for="content">Content</label>
         <input type="text" id="content" v-model="opinion.content" />
-        <label for="rating">rating</label>
-        <input type="text" id="rating" v-model="opinion.rating" />
-    
-    
+        <label for="rating">Rating</label>
+        <input placeholder="Rate this company! (1-5)" type="text" id="rating" v-model="opinion.rating" />
         <button type="submit">Add</button>
+    </div>
     </form>
+</div>
     </template>
     <script>
     import axios from "axios";

@@ -25,6 +25,7 @@
                 </p>
                 <p class="bg-black text-white pl-2 pr-2 w-fit border-solid border-2 border-black">{{ company.industry }}</p>
             </div>
+            
         </div>
 
         <div id="reviews" class= "rounded p-3 bg-third h-96 overflow-y-scroll h-max-screen mt-20">
@@ -46,15 +47,21 @@
                     </div>
                 </div>
             </div>
-
+          
             <div v-else>Opinions not found</div>
-            <div class="flex justify-center"><button @click="modal = !modal">Add opinion</button></div>
+            
+
+           
 
         </div>
+       
+
     </div>
     <div v-else>
         <addOpinion></addOpinion>
     </div>
+    <div v-if="modal===false" class="flex justify-center text-2xl"><button @click="modal = !modal">Share your thoughts with others... </button></div>
+    
 </template>
 
 <script>
