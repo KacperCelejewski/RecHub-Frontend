@@ -1,5 +1,5 @@
 <template>
-    <div v-if="modal === false" class="company-detail">
+    <div v-if="modal === false" class="company-detail flex justify-around ">
         <div id="details" class="ml-4 p-3">
             <img class="rounded-full w-[200px] aspect-square" v-if="company.logo" :src="company.logo" alt="Company Logo" />
 
@@ -27,10 +27,9 @@
             </div>
         </div>
 
-
-        <div id="reviews">
+        <div id="reviews" class= "rounded p-3 bg-third h-96 overflow-y-scroll h-max-screen mt-20">
             <h1>Opinions</h1>
-            <div v-if="opinions.length > 0" class="bg-slate-400 mb-2" v-for="opinion in opinions" :key="opinion.id">
+            <div v-if="opinions.length > 0" class=" mb-2" v-for="opinion in opinions" :key="opinion.id">
                 <p>{{ opinion.content }}</p>
                 <p>{{ opinion.posted_date }}</p>
                 <p>Author: {{ opinion.author_id }}</p>
@@ -49,7 +48,7 @@
             </div>
 
             <div v-else>Opinions not found</div>
-            <button @click="modal = !modal">Add opinion</button>
+            <div class="flex justify-center"><button @click="modal = !modal">Add opinion</button></div>
 
         </div>
     </div>
@@ -61,15 +60,19 @@
 <script>
 import axios from "axios";
 import addOpinion from "../components/addOpinion.vue";
+
 export default {
+    components: {
+        addOpinion,
+    },
     data() {
         return {
             company: {
-                name: '',
-                description: '',
-                location: '',
-                website: '',
-                logo: null
+                name: "",
+                description: "",
+                location: "",
+                website: "",
+                logo: null,
             },
             opinions: [],
             modal: false,
@@ -92,23 +95,17 @@ export default {
 
             this.company.logo = `data:${logoResponse.data.logo.mimetype};base64,${logoResponse.data.logo.logo}`;
         } catch (error) {
-            console.error('Error fetching logo data', error);
+            console.error("Error fetching logo data", error);
         }
         try {
             const companyId = this.$route.params.id;
-            const responseOpinions = await axios.get(
-                `http://localhost:5000/api/opinions/${companyId}`,
-                {}
-            );
+            const responseOpinions = await axios.get(`http://localhost:5000/api/opinions/${companyId}`, {});
             const opinions = responseOpinions.data.opinions;
             console.log(opinions); // Log the response
             this.opinions = opinions;
         } catch (err) {
             console.error(err);
         }
-
-    }
-}
-
-
+    },
+};
 </script>

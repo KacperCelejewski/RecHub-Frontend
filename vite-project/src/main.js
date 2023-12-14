@@ -7,6 +7,7 @@ import CompanyDetail from './views/CompanyDetail.vue'
 import ParamCompanies from './views/ParamCompanies.vue'
 import addOpinion from './components/addOpinion.vue';
 import Login from './views/Login.vue';
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -19,6 +20,7 @@ const router = createRouter({
 const app = createApp(App)
 app.use(router);
 app.component('addOpinion', addOpinion)
+
 app.mount('#app')
 
 export default router;
