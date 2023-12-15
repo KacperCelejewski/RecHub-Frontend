@@ -16,9 +16,17 @@
         <div class="flex justify-end text-white w-full ">
           <router-link
             :to="{ name: 'Login' }">
-          <p class="p-3 text-end text-lg w-fit max-w-[60px]">login</p>
+
+          <p class="p-3 text-end text-lg w-fit max-w-[60px]">Login</p>
         </router-link>
-          <p class="p-3 text-end text-lg w-fit max-w-[90px]">register</p>
+        <router-link
+        :to="{ name: 'register' }">
+          <p class="p-3 text-end text-lg w-fit max-w-[90px]">Register</p>
+        </router-link>
+          <router-link
+            :to="{ name: 'create-company' }">
+          <p class="p-3 mr-6 text-end text-lg w-fit max-w-[90px]">For Companies </p>
+        </router-link>
         </div>
 
       </div>
