@@ -7,8 +7,12 @@ services:
       - "8080:8080"
     networks:
       - back-front-network
+    restart: always
+    volumes:
+      - /app/node_modules
 networks:
   back-front-network:
-    name : back-front-networke
+    name : back-front-network
+
 
     

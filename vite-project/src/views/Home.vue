@@ -4,31 +4,23 @@
       class="block w-1/2 bg-black h-screen border-solid border-4 border-white rounded-lg"
     >
       <div class="w-full grid grid-cols-2 grid-rows-1">
-        
         <div class="flex justify-start">
-          <img
-            class=" aspect-[5/4]"
-            src="../assets/RecoHub (1).png"
-            alt=""
-          />
+          <img class="aspect-[5/4]" src="../assets/RecoHub (1).png" alt="" />
         </div>
 
-        <div class="flex justify-end text-white w-full ">
-          <router-link
-            :to="{ name: 'Login' }">
-
-          <p class="p-3 text-end text-lg w-fit max-w-[60px]">Login</p>
-        </router-link>
-        <router-link
-        :to="{ name: 'register' }">
-          <p class="p-3 text-end text-lg w-fit max-w-[90px]">Register</p>
-        </router-link>
-          <router-link
-            :to="{ name: 'create-company' }">
-          <p class="p-3 mr-6 text-end text-lg w-fit max-w-[90px]">For Companies </p>
-        </router-link>
+        <div class="flex justify-end text-white w-full">
+          <router-link :to="{ name: 'Login' }">
+            <p class="p-3 text-end text-lg w-fit max-w-[60px]">Login</p>
+          </router-link>
+          <router-link :to="{ name: 'register' }">
+            <p class="p-3 text-end text-lg w-fit max-w-[90px]">Register</p>
+          </router-link>
+          <router-link :to="{ name: 'create-company' }">
+            <p class="p-3 mr-6 text-end text-lg w-fit max-w-[90px]">
+              For Companies
+            </p>
+          </router-link>
         </div>
-
       </div>
       <div
         class="p-4 w-full grid grid-rows-2 grid-cols-2 gap-1 h-2/5"
