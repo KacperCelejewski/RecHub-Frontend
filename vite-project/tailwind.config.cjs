@@ -8,6 +8,10 @@ module.exports = {
         secondary:'#F3EEEA',
         third:'#BCA37F',
         fourth:'#113946',
+      },
+      fontFamily:{
+        'roboto-1':['Roboto Condensed', 'sans-serif'],
+        'roboto-2':['Roboto Mono', 'monospace'],
       }
     },
   },
