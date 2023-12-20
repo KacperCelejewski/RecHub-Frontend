@@ -1,4 +1,5 @@
 <template>
+  <Logout />
     <div v-if="modal === false" class="company-detail flex justify-around ">
         <div id="details" class="ml-4 p-3">
             <img class="rounded-full w-[200px] aspect-square" v-if="company.logo" :src="company.logo" alt="Company Logo" />
@@ -32,7 +33,9 @@
                     <dt>{{ company.avg_rating }}</dt>
                     </p>
                 <p class="bg-black text-white pl-2 pr-2 w-fit border-solid border-2 border-black">{{ company.industry }}</p>
-            </div>
+                <button @click="modal= !modal">Share your thoughs about {{company.name}}</button>
+            
+              </div>
             
         </div>
 
@@ -56,7 +59,9 @@
                 </div>
             </div>
           
-            <div v-else>Opinions not found</div>
+            <div v-else><p>Opinions not found</p>
+          <button @click="modal= !modal">Share your thoughts</button>
+            </div>
             
 
            

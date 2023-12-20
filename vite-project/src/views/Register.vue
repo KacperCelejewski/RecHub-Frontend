@@ -1,4 +1,5 @@
 <template>
+  <Logout />
   <div class="flex flex-col items-center justify-center">
     <h1 class="text-2xl text-fourth font-roboto-1">
       Together, we're making history – register and be part of it

@@ -1,4 +1,5 @@
 <template>
+    <Logout />
     <div class="param-companies  ">
         <h1 class="text-xl text-center p-2">Companies in {{ industry }} industry </h1>
         <ul class="rounded grid p-5   p-2 gap-2 grid-cols-2 auto-rows-max">

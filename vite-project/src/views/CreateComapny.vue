@@ -1,4 +1,5 @@
 <template>
+  <Logout />
   <div class="flex flex-col items-center justify-center">
     <h1>Let's start with a few infos about your company</h1>
     <div
@@ -245,6 +246,13 @@ export default {
             }
           );
         }
+        const addRepresenativeOfCompany = await axios.post(
+          "http://localhost:5000/api/representatives/add",
+          {
+            company_id: companyId,
+          }
+        );
+
         this.result = true;
         this.$router.push(`/company/${companyId}`);
       } catch (err) {

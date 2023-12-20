@@ -1,4 +1,5 @@
 <template>
+  <Logout />
   <div class="flex flex-col items-center justify-center">
     <div
       v-if="invvalidData === true"
@@ -77,6 +78,7 @@ export default {
           this.invvalidData = true;
         }
         localStorage.setItem("accessToken", response.data.access_token);
+        this.$store.commit("setLoggedIn", true);
       } catch (err) {
         console.error(err);
         this.invvalidData = true;
