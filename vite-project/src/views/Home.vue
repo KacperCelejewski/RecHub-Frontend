@@ -1,4 +1,5 @@
 <template>
+  <Logout />
   <div class="flex justify-around">
     <div
       class="block w-1/2 bg-black h-screen border-solid border-4 border-white rounded-lg"

@@ -1,4 +1,5 @@
 <template>
+  <Logout />
     <div v-if="modal === false" class="company-detail flex justify-around ">
         <div id="details" class="ml-4 p-3">
             <img class="rounded-full w-[200px] aspect-square" v-if="company.logo" :src="company.logo" alt="Company Logo" />
@@ -15,6 +16,10 @@
                 <dt><i>{{ company.description }}</i></dt>
                 </p>
                 <p>
+                    <dl class="font-semibold">Our Website:</dl>
+                    <dt>{{ company.website }}</dt>
+                    </p>
+                <p>
                 <dl class="font-semibold">We Work in:</dl>
                 <dt>{{ company.location }}</dt>
                 </p>
@@ -23,8 +28,14 @@
                 <dl class="font-semibold">Technologies We use:</dl>
                 <dt>{{ company.technology }}</dt>
                 </p>
+                <p>
+                    <dl class="font-semibold">Average rating:</dl>
+                    <dt>{{ company.avg_rating }}</dt>
+                    </p>
                 <p class="bg-black text-white pl-2 pr-2 w-fit border-solid border-2 border-black">{{ company.industry }}</p>
-            </div>
+                <button @click="modal= !modal">Share your thoughs about {{company.name}}</button>
+            
+              </div>
             
         </div>
 
@@ -48,7 +59,9 @@
                 </div>
             </div>
           
-            <div v-else>Opinions not found</div>
+            <div v-else><p>Opinions not found</p>
+          <button @click="modal= !modal">Share your thoughts</button>
+            </div>
             
 
            
@@ -60,59 +73,62 @@
     <div v-else>
         <addOpinion></addOpinion>
     </div>
-    <div v-if="modal===false" class="flex justify-center text-2xl"><button @click="modal = !modal">Share your thoughts with others... </button></div>
     
+
 </template>
 
 <script>
 import axios from "axios";
 import addOpinion from "../components/addOpinion.vue";
-
 export default {
-    components: {
-        addOpinion,
-    },
-    data() {
-        return {
-            company: {
-                name: "",
-                description: "",
-                location: "",
-                website: "",
-                logo: null,
-            },
-            opinions: [],
-            modal: false,
-        };
-    },
-    async mounted() {
-        try {
-            const companyId = this.$route.params.id;
-            const response = await axios.get(`http://localhost:5000/api/companies/${companyId}`);
-            const company = response.data.company;
-            console.log(company);
-            this.company = company;
-        } catch (err) {
-            console.error(err);
-        }
-        try {
-            const companyId = this.$route.params.id;
-            const logoResponse = await axios.get(`http://localhost:5000/api/companies/logo/${companyId}`);
-            console.log(logoResponse.data);
+  data() {
+    return {
+      company: {
+        name: "",
+        description: "",
+        location: "",
+        website: "",
+        industry: "",
+        technology: "",
+        avg_rating: "",
+      },
+      opinions: [],
+      modal: false,
+      logo: null
+    };
+  },
+  async mounted() {
+    try {
+      const companyId = this.$route.params.id;
+      const responseCompany = await axios.get(
+        `http://localhost:5000/api/companies/${companyId}`
+      );
+      const company = responseCompany.data.company;
+      console.log(company); // Log the response
+      this.company = company;
+    } catch (err) {
+      console.error(err);
+    }
+    try {
+      const companyId = this.$route.params.id;
+      const logoResponse = await axios.get(`http://localhost:5000/api/companies/logo/${companyId}`);
+              console.log(logoResponse.data);
+    try{
+        this.company.logo = `data:${logoResponse.data.logo.mimetype};base64,${logoResponse.data.logo.logo}`;
+          } catch (error) {
+              console.error('Error fetching logo data', error);
+          }
+      const responseOpinions = await axios.get(
+        `http://localhost:5000/api/opinions/${companyId}`,
+        {}
+      );
+      const opinions = responseOpinions.data.opinions;
+      console.log(opinions); // Log the response
+      this.opinions = opinions;
+    } catch (err) {
+      console.error(err);
+    }
 
-            this.company.logo = `data:${logoResponse.data.logo.mimetype};base64,${logoResponse.data.logo.logo}`;
-        } catch (error) {
-            console.error("Error fetching logo data", error);
-        }
-        try {
-            const companyId = this.$route.params.id;
-            const responseOpinions = await axios.get(`http://localhost:5000/api/opinions/${companyId}`, {});
-            const opinions = responseOpinions.data.opinions;
-            console.log(opinions); // Log the response
-            this.opinions = opinions;
-        } catch (err) {
-            console.error(err);
-        }
-    },
+  },
 };
 </script>

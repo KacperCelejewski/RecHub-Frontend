@@ -1,5 +1,25 @@
 <template>
+  <Logout />
   <div class="flex flex-col items-center justify-center">
+    <div
+      v-if="invvalidData === true"
+      class="text-rose-600 border-solid border-2 border-rose-600 p-1 rounded"
+    >
+      <svg
+        class="cursor-pointer"
+        @click="invvalidData = !invvalidData"
+        xmlns="http://www.w3.org/2000/svg"
+        height="16"
+        width="16"
+        viewBox="0 0 512 512"
+      >
+        <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+        <path
+          d="M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm0 394c0 3.3-2.7 6-6 6H54c-3.3 0-6-2.7-6-6V86c0-3.3 2.7-6 6-6h404c3.3 0 6 2.7 6 6v340zM356.5 194.6L295.1 256l61.4 61.4c4.6 4.6 4.6 12.1 0 16.8l-22.3 22.3c-4.6 4.6-12.1 4.6-16.8 0L256 295.1l-61.4 61.4c-4.6 4.6-12.1 4.6-16.8 0l-22.3-22.3c-4.6-4.6-4.6-12.1 0-16.8l61.4-61.4-61.4-61.4c-4.6-4.6-4.6-12.1 0-16.8l22.3-22.3c4.6-4.6 12.1-4.6 16.8 0l61.4 61.4 61.4-61.4c4.6-4.6 12.1-4.6 16.8 0l22.3 22.3c4.7 4.6 4.7 12.1 0 16.8z"
+        />
+      </svg>
+      <p>Invalid E-mail or Password, try again!</p>
+    </div>
     <p v-if="message === 'User logged in!'">
       Welcome back, champion! Your achievements await
     </p>
@@ -36,6 +56,7 @@ export default {
         password: "",
       },
       message: "",
+      invvalidData: false,
     };
   },
   methods: {
@@ -51,9 +72,16 @@ export default {
         console.log(response);
         this.message = response.data.message;
         console.log(response.data.message);
+        if (response.data.message === "User logged in!") {
+          this.$router.push("/");
+        } else {
+          this.invvalidData = true;
+        }
         localStorage.setItem("accessToken", response.data.access_token);
+        this.$store.commit("setLoggedIn", true);
       } catch (err) {
         console.error(err);
+        this.invvalidData = true;
       }
     },
   },
