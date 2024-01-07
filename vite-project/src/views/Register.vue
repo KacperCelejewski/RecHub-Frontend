@@ -6,7 +6,7 @@
     </h1>
     <form
       @submit.prevent="register"
-      class="flex flex-col items-center justify-center"
+      class="flex flex-col items-center justify-center p-2 border-2 border-solid border-third mt-4 rounded"
     >
       <label for="username">Name</label>
       <input type="text" id="username" v-model="user.name" />

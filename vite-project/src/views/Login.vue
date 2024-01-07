@@ -23,7 +23,7 @@
     <p v-if="message === 'User logged in!'">
       Welcome back, champion! Your achievements await
     </p>
-    <h1 class="text-2xl text-fourth font-roboto-1">
+    <h1 class="text-2xl text-fourth font-roboto-1 p-2 text-center">
       Step into Success: Your Journey Begins with a Simple Login
     </h1>
     <form
@@ -41,12 +41,16 @@
         Start Exploring
       </button>
     </form>
+    <div>
+      <button @click="goToPasswordResetView">Forgot Password?</button>
+    </div>
   </div>
 </template>
 <script>
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import PasswordReset from "../components/PasswordResetEmail.vue";
 
 export default {
   data() {
@@ -60,6 +64,9 @@ export default {
     };
   },
   methods: {
+    async goToPasswordResetView() {
+      this.$router.push("/reset-password");
+    },
     async addUser() {
       try {
         const response = await axios.post(
@@ -85,5 +92,6 @@ export default {
       }
     },
   },
+  components: { PasswordReset },
 };
 </script>
